@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey</title>
+</head>
+<body>
+  
+  <h1>
+    {% block title %}
+    Satisfaction Survey
+    {% endblock %}
+  </h1>
+
+  <p>
+    {% block body %}
+    Fill out each of the following questions, one at a time.
+    {% endblock %}
+  </p>
+
+  {% block button %}
+  <form action="/questions/{{ question_number }}">
+    <button type="submit">Start Survey
+    </button>
+  </form>
+  {% endblock %}
+
+</body>
+</html>
