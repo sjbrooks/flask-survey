@@ -18,15 +18,12 @@ def handle_first_request():
 
     return render_template('survey_home_template.html', question_number=0)
 
-@app.route('/questions/<question_number>')
+@app.route('/questions/<int:question_number>')
 def handle_button_click(question_number):
     """Handles the click of the buttons and directs
     to the next question of the survey"""
 
-    if question_number in locals():
-        question_number = int(question_number)
-    else:
-        question_number = 0
+    print("Printing question nubmer before if else", question_number)
 
     next_question = question_number + 1
     question_text = satisfaction_survey.questions[question_number].question
