@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Fill out each of the following questions, one at a time.
+{% endblock %}
+
+{% block content %}
+<p>Please answer the following questions, one by one, and proceed to the next page.</p>
+{% endblock %}
+
+{% block button %}
+<form action="/questions/{{ question_number }}">
+  <button type="submit">Start Survey
+  </button>
+</form>
+{% endblock %}

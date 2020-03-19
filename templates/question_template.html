@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{ % block title %}
+{% block title %}
 Question {{ question_number }}
 {% endblock %}
 
-{ % block body %}
+{% block content %}
 <form action="/questions/{{ next_question }}">
   {{ question_text }}
   {% for choice in question_choices %}
@@ -13,3 +13,9 @@ Question {{ question_number }}
 </form>
 {% endblock %}
 
+{% block button %}
+<form action="/questions/{{ next_question }}">
+  <button type="submit">Next Question
+  </button>
+</form>
+{% endblock %}

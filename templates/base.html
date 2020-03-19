@@ -9,21 +9,15 @@
   
   <h1>
     {% block title %}
-    Satisfaction Survey
     {% endblock %}
   </h1>
 
   <p>
-    {% block body %}
-    Fill out each of the following questions, one at a time.
+    {% block content %}
     {% endblock %}
   </p>
 
   {% block button %}
-  <form action="/questions/{{ question_number }}">
-    <button type="submit">Start Survey
-    </button>
-  </form>
   {% endblock %}
 
 </body>
