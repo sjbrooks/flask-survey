@@ -4,6 +4,7 @@ from surveys import Question, satisfaction_survey
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'fluffy'
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
@@ -25,7 +26,6 @@ def handle_first_request():
 def collect_data():
     print('\n\n GOT INTO /ANSWER \n\n')
     selected_option = request.form['answer']
-    # print('this is our requested form info ', selected_option)
 
     responses.append(selected_option)
     print("!!!!!!!!THESE ARE RESPONSES \n \n ",responses)
@@ -48,10 +48,19 @@ def handle_button_click(question_number):
 
     # print("Printing question nubmer before if else", question_number)
 
-    next_question = question_number + 1
+    next_question = len(responses) + 1
     question_text = satisfaction_survey.questions[question_number].question
     question_choices = satisfaction_survey.questions[question_number].choices
 
+    if responses is None:
+        return redirect('/')
+    if len(responses)==len(satisfaction_survey.questions):
+        print('\n \n YOU ARE DONE \n \n')
+        return redirect('/thanks')
+    if question_number != len(responses):
+        flash(f'Invalid question id: {question_number}')
+        return redirect(f"/questions/{len(responses)}")
+    
     return render_template('question_template.html', 
                             next_question=next_question, 
                             question_number=next_question, 
