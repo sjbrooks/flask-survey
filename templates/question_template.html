@@ -5,17 +5,15 @@ Question {{ question_number }}
 {% endblock %}
 
 {% block content %}
-<form action="/questions/{{ next_question }}">
+<form method="POST" action="/answer">
   {{ question_text }}
   {% for choice in question_choices %}
-  <input type="radio" name="{{ choice }}"><label for="{{ choice }}">{{ choice }}</label>
+  <input type="radio" value="{{ choice }}" name="answer"><label for="{{ choice }}">{{ choice }}</label>
   {% endfor %}
+<button type="submit">Continue</button>
 </form>
 {% endblock %}
 
-{% block button %}
-<form action="/questions/{{ next_question }}">
-  <button type="submit">Next Question
-  </button>
-</form>
+{% block button%}
 {% endblock %}
+
