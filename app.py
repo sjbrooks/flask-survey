@@ -1,13 +1,13 @@
 from flask import Flask, request, render_template, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import Question, satisfaction_survey
-responses = []
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'fluffy'
 
 debug = DebugToolbarExtension(app)
 
-
+responses = []
 
 @app.route('/')
 def handle_first_request():
@@ -27,13 +27,15 @@ def collect_data():
     responses.append(selected_option)
     print("!!!!!!!!THESE ARE RESPONSES \n \n ",responses)
 
+    print(' \n \n The number of responses was', f'{len(responses)}', ' \n \n')
+    print(' \n \n The number of questions is this survey is', f'{len(satisfaction_survey.questions)}', '\n \n')
+
     if len(responses)==len(satisfaction_survey.questions):
-        redirect('/thankyou')
+        print('\n \n YOU ARE DONE \n \n')
+        redirect('/thanks')
     else:
+        print('\n \n This redirects to question ID', f'{len(responses)}', ' \n \n')
         return redirect(f"/questions/{len(responses)}")
-
-
-
 
 
 @app.route('/questions/<int:question_number>')
@@ -53,3 +55,10 @@ def handle_button_click(question_number):
                             question_choices=question_choices,
                             question_text=question_text)
 
+@app.route('/thanks')
+def end_of_survey():
+    """Renders the thank you page at the end of the survey"""
+
+    print("\n\n\nTHANK YOU FOR YOUR RESPONSE", responses, "\n\n\n")
+
+    return render_template('thank_you.html')
