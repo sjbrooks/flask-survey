@@ -16,11 +16,14 @@ def handle_first_request():
     start the survey. The button should serve as a link
     that directs the user to /questions/0."""
 
+    responses = []
+
     return render_template('survey_home_template.html', question_number=0)
 
 
 @app.route('/answer', methods=["POST"])
 def collect_data():
+    print('\n\n GOT INTO /ANSWER \n\n')
     selected_option = request.form['answer']
     # print('this is our requested form info ', selected_option)
 
@@ -32,7 +35,7 @@ def collect_data():
 
     if len(responses)==len(satisfaction_survey.questions):
         print('\n \n YOU ARE DONE \n \n')
-        redirect('/thanks')
+        return redirect('/thanks')
     else:
         print('\n \n This redirects to question ID', f'{len(responses)}', ' \n \n')
         return redirect(f"/questions/{len(responses)}")
